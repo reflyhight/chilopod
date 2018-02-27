@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: chilopod-spider
+  profiles:
+    active: dev
