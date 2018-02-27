@@ -1,4 +1,4 @@
-package cn.dtvalley.core;
+package cn.dtvalley.chilopod.core;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -1,4 +1,4 @@
-package cn.dtvalley.core;
+package cn.dtvalley.chilopod.core;
 
 /**
  * Hello world!
