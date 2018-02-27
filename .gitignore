@@ -7,3 +7,5 @@ out/
 .settings/
 bin/
 .myeclipse
+/classes/
+/out/
