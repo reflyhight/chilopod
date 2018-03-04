@@ -1,0 +1,8 @@
+{
+  "groups": [
+    {
+      "name": "SpiderConfiguration",
+      "type": "cn.dtvalley.chilopod.spider.config.SpiderConfiguration"
+    }
+  ]
+}
