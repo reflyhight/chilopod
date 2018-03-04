@@ -1,4 +1,4 @@
-package cn.dtvalley.chilopod.spider;
+package cn.dtvalley.chilopod.master;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

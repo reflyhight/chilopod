@@ -3,3 +3,5 @@ spring:
     name: chilopod-spider
   profiles:
     active: dev
+server:
+  port: 8081
