@@ -31,7 +31,7 @@ public class RedisScheduler extends DuplicateRemovedScheduler implements Monitor
 			jedis.rpush(RedisKeys.getQueueKey(this.task), request.getUrl());
 
 			if (request.getExtras() != null) {
-				String field = DigestUtils.shaHex(request.getUrl());
+				String field = DigestUtils.sha1Hex(request.getUrl());
 				String value = JSON.toJSONString(request);
 				jedis.hset((RedisKeys.getItemKey(task)), field, value);
 			}
@@ -49,7 +49,7 @@ public class RedisScheduler extends DuplicateRemovedScheduler implements Monitor
 				return null;
 			}
 			String key = RedisKeys.getItemKey(this.task);
-			String field = DigestUtils.shaHex(url);
+			String field = DigestUtils.sha1Hex(url);
 
 			byte[] bytes = jedis.hget(key.getBytes(), field.getBytes());
 			if (bytes != null) {
