@@ -98,8 +98,7 @@ public class RedisScheduler extends DuplicateRemovedScheduler implements Monitor
 			jedis.del(RedisKeys.getItemKey(this.task));
 			jedis.del(RedisKeys.getQueueKey(this.task));
 			jedis.del(RedisKeys.getSetKey(this.task));
-		} catch (Exception e) {
-			// TODO: handle exception
+		} finally {
 			jedis.close();
 		}
 	}
