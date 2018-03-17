@@ -4,8 +4,6 @@ spring:
     username: cdb_outerroot
     password: shandelzare123
     driver-class-name: com.mysql.jdbc.Driver
-  redis:
-    host: 45.62.111.199
-    jedis:
-      pool:
-        max-active: 20
+register:
+  server:
+    ip: 127.0.0.1:8002
