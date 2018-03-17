@@ -21,12 +21,10 @@ public class RedisPoolUtil {
             Integer timeout = Integer.parseInt(properties.getProperty("jedis.timeout"));
 
             GenericObjectPoolConfig poolConfig = new GenericObjectPoolConfig();
-            // 设置最大连接数为默认值的 5 倍
+            // 设置最大连接数为默认值的 50 倍
             poolConfig.setMaxTotal(GenericObjectPoolConfig.DEFAULT_MAX_TOTAL * 50);
-            // 设置最大空闲连接数为默认值的 3 倍
+            // 设置最大空闲连接数为默认值的 30 倍
             poolConfig.setMaxIdle(GenericObjectPoolConfig.DEFAULT_MAX_IDLE * 30);
-            // 设置最小空闲连接数为默认值的 2 倍
-            poolConfig.setMinIdle(GenericObjectPoolConfig.DEFAULT_MIN_IDLE * 20);
             // 设置开启 jmx 功能
             poolConfig.setJmxEnabled(true);
             // 设置连接池没有连接后客户端的最大等待时间 ( 单位为毫秒 )
