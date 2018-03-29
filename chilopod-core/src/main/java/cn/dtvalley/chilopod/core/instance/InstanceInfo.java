@@ -3,12 +3,14 @@ package cn.dtvalley.chilopod.core.instance;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class InstanceInfo {
-    private static final Map<String, Group> map = new ConcurrentHashMap<>();
+    private static final Map<String, Instance> map = new ConcurrentHashMap<>();
     private static final InstanceInfo instanceInfo = new InstanceInfo();
+
     private InstanceInfo() {
     }
 
@@ -16,59 +18,26 @@ public class InstanceInfo {
         return instanceInfo;
     }
 
-    public List<Instance> getInstance(String name) {
-        Group group = map.get(name);
-        if (Objects.isNull(group)) {
-            return null;
-        } else {
-            return group.getInstances();
-        }
+    public Instance getInstance(String ip) {
+        return map.get(ip);
     }
 
-    public void removeInstance(String name, String ip) {
-        Group group = map.get(name);
-        if (Objects.isNull(group)) {
-            throw new RuntimeException("instance 不存在");
-        } else {
-            Optional<Instance> instance = group.getInstances().stream().filter(it -> Objects.equals(it.getIp(), ip)).findAny();
-            if (!instance.isPresent())
-                throw new RuntimeException("instance 不存在");
-            group.getInstances().remove(instance.get());
-        }
+    public void removeInstance(String ip) {
+        map.remove(ip);
     }
 
-    public void addInstance(String name, String ip) {
-        Group group = map.get(name);
-        if (!Objects.isNull(group)) {
-            Optional<Instance> instance = group.getInstances().stream().filter(it -> Objects.equals(it.getIp(), ip)).findAny();
-            if (instance.isPresent()) {
-                Instance instance1 = instance.get();
-                instance1.setLastRefreshTime(LocalDateTime.now());
-                instance1.setRegisterTime(LocalDateTime.now());
-            } else {
-                Instance instance1 = new Instance();
-                instance1.setLastRefreshTime(LocalDateTime.now());
-                instance1.setRegisterTime(LocalDateTime.now());
-                instance1.setIp(ip);
-                group.getInstances().add(instance1);
-            }
+    public void addInstance(String ip) {
+        Instance instance = map.get(ip);
+        if (!Objects.isNull(instance)) {
+            instance.setLastRefreshTime(LocalDateTime.now());
+            instance.setRegisterTime(LocalDateTime.now());
         } else {
-            group = new Group();
-            List<Instance> instances = new ArrayList<>();
-            Instance instance1 = new Instance();
-            instance1.setLastRefreshTime(LocalDateTime.now());
-            instance1.setRegisterTime(LocalDateTime.now());
-            instance1.setIp(ip);
-            instances.add(instance1);
-            group.setInstances(instances);
-            map.put(name, group);
+            instance = new Instance();
+            instance.setLastRefreshTime(LocalDateTime.now());
+            instance.setRegisterTime(LocalDateTime.now());
+            instance.setIp(ip);
+            map.put(ip, instance);
         }
-    }
-
-    @Data
-    private class Group {
-        private String name;
-        private List<Instance> instances;//ip
     }
 
     @Data

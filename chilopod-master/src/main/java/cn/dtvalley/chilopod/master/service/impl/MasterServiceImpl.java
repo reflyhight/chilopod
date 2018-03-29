@@ -15,6 +15,6 @@ public class MasterServiceImpl implements MasterService {
     @Override
     public void register(ClientRequest clientRequest) {
         log.info("客户端注册");
-        instanceInfo.addInstance(clientRequest.getName(), clientRequest.getIp());
+        instanceInfo.addInstance( clientRequest.getIp());
     }
 }

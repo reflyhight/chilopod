@@ -43,9 +43,8 @@ public class RegisterListener implements ApplicationListener<ApplicationStartedE
                     URI url = new URI("http://" + it + "/register");
                     ClientRequest request = new ClientRequest();
                     request.setIp(ip);
-                    request.setName("slave");
-                    ResponseEntity responseEntity = restTemplate.postForEntity(url, request, String.class);
-                    if (responseEntity.getStatusCode() == HttpStatus.OK)
+//                    ResponseEntity responseEntity = restTemplate.postForEntity(url, request, String.class);
+//                    if (responseEntity.getStatusCode() == HttpStatus.OK)
                         return;
                 } catch (URISyntaxException e) {
                     e.printStackTrace();

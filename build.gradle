@@ -1,0 +1,36 @@
+allprojects {
+    group = 'cn.dtvalley'
+    version = '0.0.1-SNAPSHOT'
+}
+
+subprojects {
+    apply plugin: 'java'
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+
+    repositories {
+        mavenLocal()
+        maven { url "http://123.56.7.121:8081/repository/maven-public/" }
+        maven { url "http://repo.maven.apache.org/maven2" }
+    }
+
+
+    dependencies {
+        compile group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: '2.0.0.RELEASE'
+        compile group: 'org.hibernate', name: 'hibernate-java8', version: '5.0.1.Final'
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.0.0.RELEASE'
+        compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.2'
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.0.0.RELEASE'
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.0.0.RELEASE'
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.0.0.RELEASE'
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.0.0.RELEASE'
+        compile group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
+        runtime group: 'mysql', name: 'mysql-connector-java', version: '5.1.45'
+        testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.0.0.RELEASE'
+    }
+    compileJava.dependsOn(processResources)
+}
