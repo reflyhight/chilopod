@@ -3,12 +3,11 @@ package cn.dtvalley.chilopod.master.controller;
 import cn.dtvalley.chilopod.core.instance.ClientRequest;
 import cn.dtvalley.chilopod.master.service.MasterService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
+import java.io.IOException;
 
 @RestController
 public class MasterController {
@@ -26,6 +25,11 @@ public class MasterController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("register")
+    public ResponseEntity list() {
+        return ResponseEntity.ok().body(masterService.list());
+    }
+
     /**
      * 服务预约接口
      */
@@ -41,6 +45,13 @@ public class MasterController {
     @DeleteMapping("cancel")
     public ResponseEntity cancel(ClientRequest instanceInfo) {
         masterService.register(instanceInfo);
+        return ResponseEntity.ok().build();
+    }
+
+
+    @PostMapping("dispense")
+    public ResponseEntity dispense() throws IOException, ServletException {
+        masterService.dispense();
         return ResponseEntity.ok().build();
     }
 }

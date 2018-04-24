@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.annotation.Resource;
 import java.net.*;
 import java.util.Arrays;
+import java.util.List;
 
 @Slf4j
 @Component
@@ -35,10 +36,9 @@ public class RegisterListener implements ApplicationListener<ApplicationStartedE
     public void onApplicationEvent(@Nullable ApplicationStartedEvent event) {
         try {
             String ip = NetUtil.getIpAddr();
-            String[] serverIps = registerConfiguration.getIp();
+            List<String> serverIps = registerConfiguration.getIp();
             log.info(ip);
-            log.info(Arrays.deepToString(serverIps));
-            Arrays.stream(serverIps).forEach(it -> {
+            serverIps.forEach(it -> {
                 try {
                     URI url = new URI("http://" + it + "/register");
                     ClientRequest request = new ClientRequest();

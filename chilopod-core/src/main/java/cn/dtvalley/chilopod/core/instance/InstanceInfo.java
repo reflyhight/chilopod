@@ -7,19 +7,17 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class InstanceInfo {
+public enum InstanceInfo {
+    instanceInfo;
+
     private static final Map<String, Instance> map = new ConcurrentHashMap<>();
-    private static final InstanceInfo instanceInfo = new InstanceInfo();
-
-    private InstanceInfo() {
-    }
-
-    public static InstanceInfo getInstance() {
-        return instanceInfo;
-    }
 
     public Instance getInstance(String ip) {
         return map.get(ip);
+    }
+
+    public Map<String, Instance> getInstance() {
+        return map;
     }
 
     public void removeInstance(String ip) {
@@ -39,6 +37,7 @@ public class InstanceInfo {
             map.put(ip, instance);
         }
     }
+
 
     @Data
     public class Instance {
