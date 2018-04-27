@@ -3,28 +3,31 @@ package cn.dtvalley.chilopod.slave;
 import cn.dtvalley.chilopod.core.ChilopodContext;
 import cn.dtvalley.chilopod.core.Environment;
 import cn.dtvalley.chilopod.core.common.utils.NetUtil;
-import cn.dtvalley.chilopod.slave.register.RegisterConfiguration;
-import org.springframework.beans.factory.annotation.Autowired;
+import cn.dtvalley.chilopod.core.instance.SlaveTask;
+import org.springframework.boot.web.servlet.context.ServletWebServerInitializedEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import java.net.URL;
 import java.net.UnknownHostException;
+import java.time.LocalDateTime;
 
 
 @Component
 public final class SlaveChilopodContext implements ChilopodContext {
 
-    private final RegisterConfiguration registerConfiguration;
+    private String ip;
+    private String name;
+    private int port;
+    private LocalDateTime startTime;
 
 
-    private Instance instance;//本服务信息
+    private Status status; //状态,
 
-    public Boolean isWord;//是否正在运行
 
-    private TaskManager taskManager;//执行任务列表
-
-    @Autowired
-    public SlaveChilopodContext(RegisterConfiguration registerConfiguration) {
-        this.registerConfiguration = registerConfiguration;
+    public Status getStatus() {
+        long count = TaskManager.getTasks().values().stream().filter(it -> it.getStatus() == SlaveTask.Status.RUNNING).count();
+        return count > 0 ? Status.RUNNING : Status.WAITING;
     }
 
     @Override
@@ -33,14 +36,47 @@ public final class SlaveChilopodContext implements ChilopodContext {
     }
 
     void init() {
-        isWord = false;
-        instance = new Instance();
+        status = Status.WAITING;
+        startTime = LocalDateTime.now();
         try {
-            String ip = NetUtil.getIpAddr();
-            instance.setIp(ip);
-            instance.setMasterIp(registerConfiguration.getIp());
+            ip = NetUtil.getIpAddr();
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
     }
+
+
+    @Component
+    class RegisterListener implements ApplicationListener<ServletWebServerInitializedEvent> {
+        @Override
+        public void onApplicationEvent(ServletWebServerInitializedEvent event) {
+            port = event.getWebServer().getPort();
+            name =event.getApplicationContext().getId();
+        }
+    }
+
+
+
+    enum Status {
+        RUNNING,//运行中
+        WAITING,//等待中
+        ERROR //异常
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
 }

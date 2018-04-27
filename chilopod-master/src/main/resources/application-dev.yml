@@ -9,3 +9,5 @@ spring:
     jedis:
       pool:
         max-active: 20
+  thymeleaf:
+    cache: false

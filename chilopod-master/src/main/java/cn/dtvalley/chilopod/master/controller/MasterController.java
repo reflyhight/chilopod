@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @RestController
 public class MasterController {
@@ -25,8 +27,9 @@ public class MasterController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("register")
+    @GetMapping("register/list")
     public ResponseEntity list() {
+
         return ResponseEntity.ok().body(masterService.list());
     }
 
@@ -54,4 +57,10 @@ public class MasterController {
         masterService.dispense();
         return ResponseEntity.ok().build();
     }
+
+//    @GetMapping("v1/server")
+//    public ResponseEntity servers(){
+//        masterService.
+//        return ResponseEntity.ok().build();
+//    }
 }

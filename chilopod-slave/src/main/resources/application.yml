@@ -1,5 +1,5 @@
 spring:
   application:
-    name: chilopod-master
+    name: chilopod-slave
   profiles:
     active: dev
