@@ -1,0 +1,9 @@
+rootProject.name = 'chilopod'
+include ':chilopod-spider'
+include ':chilopod-master'
+include ':chilopod-slave'
+include ':chilopod-core'
+
+//project(':chilopod-spider').projectDir = "$rootDir/chilopod-spider" as File
+//project(':chilopod-master').projectDir = "$rootDir/chilopod-master" as File
+//project(':chilopod-slave').projectDir = "$rootDir/chilopod-slave" as File

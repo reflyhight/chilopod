@@ -1,0 +1,6 @@
+
+description = 'chilopod-slave'
+dependencies {
+  compile project(':chilopod-core')
+}
+compileJava.dependsOn(processResources)

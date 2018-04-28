@@ -1,7 +1,5 @@
 spring:
   application:
-    name: chilopod-spider
+    name: chilopod-slave
   profiles:
     active: dev
-server:
-  port: 8081

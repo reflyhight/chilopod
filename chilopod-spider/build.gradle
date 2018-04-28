@@ -1,0 +1,7 @@
+
+description = 'chilopod-spider'
+dependencies {
+    compile group: 'us.codecraft', name: 'webmagic-core', version:'0.7.3'
+    compile group: 'us.codecraft', name: 'webmagic-extension', version:'0.7.3'
+  compile project(':chilopod-core')
+}

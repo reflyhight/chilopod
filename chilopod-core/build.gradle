@@ -1,0 +1,5 @@
+dependencies {
+    compile group: 'org.projectlombok', name: 'lombok', version:'1.16.18'
+    compile group: 'redis.clients', name: 'jedis', version:'2.8.0'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.4'
+}

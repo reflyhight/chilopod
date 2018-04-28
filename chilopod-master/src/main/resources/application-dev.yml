@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:mysql://5628e0ad1c559.sh.cdb.myqcloud.com:9993/chilopod?characterEncoding=utf8&useSSL=true
+    username: cdb_outerroot
+    password: shandelzare123
+    driver-class-name: com.mysql.jdbc.Driver
+  redis:
+    host: 45.62.111.199
+    jedis:
+      pool:
+        max-active: 20
+  thymeleaf:
+    cache: false

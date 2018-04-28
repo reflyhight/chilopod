@@ -1,0 +1,8 @@
+{
+  "groups": [
+    {
+      "name": "RegisterConfiguration",
+      "type": "cn.dtvalley.chilopod.slave.register.RegisterConfiguration"
+    }
+  ]
+}

@@ -4,5 +4,6 @@ spring:
     username: cdb_outerroot
     password: shandelzare123
     driver-class-name: com.mysql.jdbc.Driver
-chilopod:
-  spider: false
+register:
+  server:
+    ip: 127.0.0.1:8002
