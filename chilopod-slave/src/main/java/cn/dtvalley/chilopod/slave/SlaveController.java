@@ -45,10 +45,7 @@ public class SlaveController {
                     SlaveRun slaveRun = task.getRunObject();
                     task.setStatus(SlaveTask.Status.RUNNING);
                     try {
-                        while (true) {
-                            Thread.sleep(1000);
-                            slaveRun.run();
-                        }
+                        slaveRun.run();
                     } catch (Exception e) {
                         System.out.println(ExceptionUtils.getMessage(e));
                     } finally {
