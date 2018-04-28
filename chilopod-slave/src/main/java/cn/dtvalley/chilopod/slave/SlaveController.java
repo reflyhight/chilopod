@@ -45,7 +45,10 @@ public class SlaveController {
                     SlaveRun slaveRun = task.getRunObject();
                     task.setStatus(SlaveTask.Status.RUNNING);
                     try {
-                        slaveRun.run();
+                        if (slaveRun.init()){
+                            slaveRun.run();
+                            slaveRun.destroy();
+                        }
                     } catch (Exception e) {
                         System.out.println(ExceptionUtils.getMessage(e));
                     } finally {
