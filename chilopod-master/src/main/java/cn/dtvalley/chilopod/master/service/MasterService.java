@@ -3,7 +3,7 @@ package cn.dtvalley.chilopod.master.service;
 
 import cn.dtvalley.chilopod.core.instance.ClientRequest;
 import cn.dtvalley.chilopod.core.instance.InstanceInfo;
-import org.springframework.http.ResponseEntity;
+import cn.dtvalley.chilopod.core.instance.TaskStartParam;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
@@ -16,4 +16,5 @@ public interface MasterService {
 
     void dispense() throws IOException, ServletException;
 
+    void taskStart(TaskStartParam param);
 }

@@ -1,15 +1,14 @@
 package cn.dtvalley.chilopod.master.controller;
 
 import cn.dtvalley.chilopod.core.instance.ClientRequest;
+import cn.dtvalley.chilopod.core.instance.TaskStartParam;
 import cn.dtvalley.chilopod.master.service.MasterService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 @RestController
 public class MasterController {
@@ -58,9 +57,10 @@ public class MasterController {
         return ResponseEntity.ok().build();
     }
 
-//    @GetMapping("v1/server")
-//    public ResponseEntity servers(){
-//        masterService.
-//        return ResponseEntity.ok().build();
-//    }
+    @PostMapping("slave/task/start")
+    public ResponseEntity taskStart(@RequestBody TaskStartParam param) {
+        masterService.taskStart(param);
+        return ResponseEntity.ok().build();
+    }
+
 }

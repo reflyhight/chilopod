@@ -2,6 +2,7 @@ package cn.dtvalley.chilopod.master.service.impl;
 
 import cn.dtvalley.chilopod.core.instance.ClientRequest;
 import cn.dtvalley.chilopod.core.instance.InstanceInfo;
+import cn.dtvalley.chilopod.core.instance.TaskStartParam;
 import cn.dtvalley.chilopod.master.service.MasterService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
@@ -62,4 +62,8 @@ public class MasterServiceImpl implements MasterService {
         restTemplate.postForEntity("http://" + ip + ":" + port + "/slave/jar", entity, String.class);
     }
 
+    @Override
+    public void taskStart(TaskStartParam param) {
+        restTemplate.postForEntity("http://" + param.getIp() + ":" + param.getPort() + "/slave/task/run", param, String.class);
+    }
 }

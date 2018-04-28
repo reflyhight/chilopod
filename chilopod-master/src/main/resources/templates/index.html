@@ -235,9 +235,11 @@
                             <td>{{item.status}}</td>
                             <td>{{item.startTime}}</td>
                             <td>
-                                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
-                                        data-target="#myModal">
-                                    详情
+                                <button type="button" class="btn btn-primary btn-lg" @Click="slaveTaskStart(item)">
+                                    启动
+                                </button>
+                                <button type="button" class="btn btn-primary btn-lg" @Click="slaveTaskStop(item)">
+                                    停止
                                 </button>
                             </td>
                         </tr>
@@ -270,37 +272,58 @@
         data: {
             servers: [],
             serverDetail: {
-                ip:null,
-                port:null,
+                ip: null,
+                port: null,
                 name: null,
                 status: null,
                 startTime: null,
                 tasks: [],
-                file:null,
-                taskName:'',
-                taskStartClass:null
+                file: null,
+                taskName: '',
+                taskStartClass: ''
             }
         },
         methods: {
             task: function () {
             },
-            fileChange:function (e) {
+            fileChange: function (e) {
                 this.serverDetail.file = event.target.files[0];
                 console.log(this.file);
             },
             showSlave: function (item) {
                 var _this = this;
                 _this.serverDetail = item
-
+            },
+            slaveTaskStart:function (item) {
+                axios.post('/slave/task/start', {
+                    ip:this.serverDetail.ip,
+                    port:this.serverDetail.port,
+                    taskName:item.name,
+                    type:"run"
+                })
+                    .then(function (response) {
+                        console.log(response.data);
+                    })
+            },
+            slaveTaskStop:function (item) {
+                axios.post('/slave/task/start', {
+                    ip:this.serverDetail.ip,
+                    port:this.serverDetail.port,
+                    taskName:item.name,
+                    type:"cancel"
+                })
+                    .then(function (response) {
+                        console.log(response.data);
+                    })
             },
             uploadTask: function () {
                 var file = this.serverDetail.file;
                 var param = new FormData();
                 param.append('file', file, file.name);
-                param.append('taskName',  this.serverDetail.taskName);
-                param.append('ip',  this.serverDetail.ip);
-                param.append('port',  this.serverDetail.port);
-                param.append('taskStartClass',  this.serverDetail.taskStartClass);
+                param.append('taskName', this.serverDetail.taskName);
+                param.append('ip', this.serverDetail.ip);
+                param.append('port', this.serverDetail.port);
+                param.append('taskStartClass', this.serverDetail.taskStartClass);
                 console.log(param.get('file')); //FormData私有类对象，访问不到，可以通过get判断值是否传进去
                 var config = {
                     headers: {'Content-Type': 'multipart/form-data'}
