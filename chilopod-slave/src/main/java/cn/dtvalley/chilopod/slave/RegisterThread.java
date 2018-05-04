@@ -45,7 +45,7 @@ public class RegisterThread implements ApplicationListener<ApplicationStartedEve
         while (flag) {
             try {
                 Thread.sleep(30 * 1000);
-                List<String> serverIps = registerConfiguration.getIp();
+                List<String> serverIps = registerConfiguration.getServer().getIp();
                 serverIps.forEach(it -> {
                     try {
                         URI url = new URI("http://" + it + "/register");
