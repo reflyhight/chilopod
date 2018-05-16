@@ -1,6 +1,7 @@
 package cn.dtvalley.chilopod.slave;
 
 import cn.dtvalley.chilopod.core.instance.ClientRequest;
+import cn.dtvalley.chilopod.slave.context.SlaveChilopodContext;
 import cn.dtvalley.chilopod.slave.register.RegisterConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;

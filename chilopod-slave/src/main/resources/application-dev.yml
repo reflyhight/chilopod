@@ -7,6 +7,9 @@ spring:
   couchbase:
     bucket:
       name:
+  jpa:
+    hibernate:
+      ddl-auto: update
 slave:
   server:
     ip: 127.0.0.1:8002

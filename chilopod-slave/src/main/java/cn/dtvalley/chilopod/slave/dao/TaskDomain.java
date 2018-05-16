@@ -1,4 +1,4 @@
-package cn.dtvalley.chilopod.slave;
+package cn.dtvalley.chilopod.slave.dao;
 
 import lombok.Data;
 
@@ -16,7 +16,13 @@ public class TaskDomain {
 
     private String name;
 
+    private String instanceName;
+
     private String ip;
 
-//    private String
+    private String status;
+
+    private String mainClass;
+
+    private String path;
 }
