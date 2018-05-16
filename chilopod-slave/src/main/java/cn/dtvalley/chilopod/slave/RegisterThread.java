@@ -1,6 +1,7 @@
 package cn.dtvalley.chilopod.slave;
 
 import cn.dtvalley.chilopod.core.instance.ClientRequest;
+import cn.dtvalley.chilopod.slave.context.SlaveChilopodContext;
 import cn.dtvalley.chilopod.slave.register.RegisterConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -45,7 +46,7 @@ public class RegisterThread implements ApplicationListener<ApplicationStartedEve
         while (flag) {
             try {
                 Thread.sleep(30 * 1000);
-                List<String> serverIps = registerConfiguration.getIp();
+                List<String> serverIps = registerConfiguration.getServer().getIp();
                 serverIps.forEach(it -> {
                     try {
                         URI url = new URI("http://" + it + "/register");

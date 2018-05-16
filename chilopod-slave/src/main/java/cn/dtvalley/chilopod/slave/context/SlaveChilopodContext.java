@@ -1,19 +1,25 @@
-package cn.dtvalley.chilopod.slave;
+package cn.dtvalley.chilopod.slave.context;
 
 import cn.dtvalley.chilopod.core.ChilopodContext;
 import cn.dtvalley.chilopod.core.Environment;
 import cn.dtvalley.chilopod.core.common.utils.NetUtil;
 import cn.dtvalley.chilopod.core.instance.SlaveTask;
+import cn.dtvalley.chilopod.slave.TaskManager;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.context.ServletWebServerInitializedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
-import java.net.URL;
 import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 
-
+/**
+ * slave context
+ */
 @Component
+@Slf4j
+@Getter
 public final class SlaveChilopodContext implements ChilopodContext {
 
     private String ip;
@@ -21,10 +27,9 @@ public final class SlaveChilopodContext implements ChilopodContext {
     private int port;
     private LocalDateTime startTime;
 
-
-    private Status status; //状态,
-
-
+    /**
+     * 通过遍历所以的task,查看每个task状态
+     */
     public Status getStatus() {
         long count = TaskManager.getTasks().values().stream().filter(it -> it.getStatus() == SlaveTask.Status.RUNNING).count();
         return count > 0 ? Status.RUNNING : Status.WAITING;
@@ -35,21 +40,20 @@ public final class SlaveChilopodContext implements ChilopodContext {
         return Environment.SLAVE;
     }
 
-    void init() {
-        status = Status.WAITING;
-        startTime = LocalDateTime.now();
-        try {
-            ip = NetUtil.getIpAddr();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-    }
-
-
+    /**
+     * context 启动初始化
+     */
     @Component
     class RegisterListener implements ApplicationListener<ServletWebServerInitializedEvent> {
         @Override
         public void onApplicationEvent(ServletWebServerInitializedEvent event) {
+            log.info("context init ... ");
+            startTime = LocalDateTime.now();
+            try {
+                ip = NetUtil.getIpAddr();
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
             port = event.getWebServer().getPort();
             name =event.getApplicationContext().getId();
         }
@@ -57,26 +61,9 @@ public final class SlaveChilopodContext implements ChilopodContext {
 
 
 
-    enum Status {
+    public enum Status {
         RUNNING,//运行中
         WAITING,//等待中
         ERROR //异常
     }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
-
 }
